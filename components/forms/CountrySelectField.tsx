@@ -94,7 +94,7 @@ const CountrySelect = ({ value, onChange }: CountrySelectInputProps) => {
             No country found.
           </CommandEmpty>
 
-          <CommandList className="max-h-60 bg-black scrollbar-hide-default">
+          <CommandList className="max-h-60 bg-black no-scrollbar">
             <CommandGroup className="bg-black">
               {countries.map((country) => (
                 <CommandItem
@@ -108,10 +108,10 @@ const CountrySelect = ({ value, onChange }: CountrySelectInputProps) => {
                     "country-select-item",
                     "bg-black",
                     "text-gray-100",
-                    "aria-selected:!bg-black",
-                    "aria-selected:!text-gray-100",
-                    "data-[selected=true]:!bg-black",
-                    "data-[selected=true]:!text-gray-100",
+                    "aria-selected:bg-black!",
+                    "aria-selected:text-gray-100!",
+                    "data-[selected=true]:bg-black!",
+                    "data-[selected=true]:text-gray-100!",
                   )}
                 >
                   <Check
