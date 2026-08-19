@@ -13,19 +13,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import NavItems from "./NavItems";
+import { signOut } from "@/lib/actions/auth.actions";
 
-const UserDropdown = () => {
+const UserDropdown = ({ user }: { user: User }) => {
   const router = useRouter();
 
-  const user = {
-    name: "Ahmad Naveed",
-    email: "ahmadnaveedofficial05@gmail.com",
-    avatar: "https://github.com/shadcn.png",
-  };
-
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Logged out successfully");
     router.push("/sign-in");
   };
 
