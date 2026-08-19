@@ -25,14 +25,14 @@ export function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Formatted string like "$3.10T", "$900.00B", "$25.00M" or "$999,999.99"
+// Formatted string like "USD 3.10T", "USD 900.00B", "USD 25.00M" or "USD 999,999.99"
 export function formatMarketCapValue(marketCapUsd: number): string {
   if (!Number.isFinite(marketCapUsd) || marketCapUsd <= 0) return "N/A";
 
-  if (marketCapUsd >= 1e12) return `$${(marketCapUsd / 1e12).toFixed(2)}T`; // Trillions
-  if (marketCapUsd >= 1e9) return `$${(marketCapUsd / 1e9).toFixed(2)}B`; // Billions
-  if (marketCapUsd >= 1e6) return `$${(marketCapUsd / 1e6).toFixed(2)}M`; // Millions
-  return `$${marketCapUsd.toFixed(2)}`; // Below one million, show full USD amount
+  if (marketCapUsd >= 1e12) return `USD ${(marketCapUsd / 1e12).toFixed(2)}T`; // Trillions
+  if (marketCapUsd >= 1e9) return `USD ${(marketCapUsd / 1e9).toFixed(2)}B`; // Billions
+  if (marketCapUsd >= 1e6) return `USD ${(marketCapUsd / 1e6).toFixed(2)}M`; // Millions
+  return `USD ${marketCapUsd.toFixed(2)}`; // Below one million, show full amount
 }
 
 export const getDateRange = (days: number) => {
@@ -48,7 +48,9 @@ export const getDateRange = (days: number) => {
 // Get today's date range (from today to today)
 export const getTodayDateRange = () => {
   const today = new Date();
-  const todayString = today.toISOString().split("T")[0];
+  const todayString = today.toLocaleDateString("en-CA", {
+    timeZone: "Asia/Karachi",
+  });
   return {
     to: todayString,
     from: todayString,
@@ -77,7 +79,8 @@ export const validateArticle = (article: RawNewsArticle) =>
   article.headline && article.summary && article.url && article.datetime;
 
 // Get today's date string in YYYY-MM-DD format
-export const getTodayString = () => new Date().toISOString().split("T")[0];
+export const getTodayString = () =>
+  new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Karachi" });
 
 export const formatArticle = (
   article: RawNewsArticle,
@@ -116,12 +119,12 @@ export const formatPrice = (price: number) => {
   }).format(price);
 };
 
-export const formatDateToday = new Date().toLocaleDateString("en-US", {
+export const formatDateToday = new Date().toLocaleDateString("en-PK", {
   weekday: "long",
   year: "numeric",
   month: "long",
   day: "numeric",
-  timeZone: "UTC",
+  timeZone: "Asia/Karachi",
 });
 
 export const getAlertText = (alert: Alert) => {
@@ -130,10 +133,10 @@ export const getAlertText = (alert: Alert) => {
 };
 
 export const getFormattedTodayDate = () =>
-  new Date().toLocaleDateString("en-US", {
+  new Date().toLocaleDateString("en-PK", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: "UTC",
+    timeZone: "Asia/Karachi",
   });
